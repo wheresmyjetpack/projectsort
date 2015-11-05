@@ -3,8 +3,6 @@
 from utils.date_file_utils import * 
 from config.projectsort_config import *
 
-# projects_dir = '/Users/pmorris/Projects/'
-
 if __name__ == '__main__':
     
     for root, dirs, files in os.walk(projects_dir):
