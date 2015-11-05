@@ -1,0 +1,31 @@
+#!/usr/bin/python
+
+from utils.date_file_utils import * 
+from config.projectsort_config import *
+
+# projects_dir = '/Users/pmorris/Projects/'
+
+if __name__ == '__main__':
+    
+    for root, dirs, files in os.walk(projects_dir):
+        for f in files:
+            
+            # Make sure the directory the file is contained in is not already dated
+            if is_dated(f) and not is_dated(root):
+
+                path_to_file = '%s/%s' % (root, f)
+                dated_dir = '%s/%s' % (root, get_new_dir(f))
+                new_loc = '%s/%s' % (dated_dir, f)
+                
+                # Make the new directory if it doesn't exist
+                if not os.path.exists(dated_dir):
+                    os.mkdir(dated_dir)
+                    print '[+] Created directory: %s' % (dated_dir)
+                    
+                    os.rename(path_to_file, new_loc)
+                    print '[+] Moved %s into %s' % (f, dated_dir) 
+                
+                # -or- just move the dated files into the existing directory
+                else:
+                    os.rename(path_to_file, new_loc)
+                    print '[+] Moved %s into %s' % (f, dated_dir)
